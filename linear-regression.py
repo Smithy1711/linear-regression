@@ -1,4 +1,6 @@
 from numpy import *
+import matplotlib.pyplot as plt
+
 
 def compute_error_for_line_given_points(b, m, points):
     #init error at 0
@@ -62,6 +64,24 @@ def run():
     print ("Starting gradient descent at b = {0}, m = {1}, error = {2}".format(initial_b, initial_m, compute_error_for_line_given_points(initial_b, initial_m, points)))
     [b, m] = gradient_descent_runner(points, initial_b, initial_m, learning_rate, iterations)
     print ("After {0} iterations b = {1}, m = {2}, error = {3}".format(iterations, b, m, compute_error_for_line_given_points(b, m, points)))
+
+    # Correctly plotting the points and line
+    x_values = points[:, 0]  # All x values
+    y_values = points[:, 1]  # All y values
+    y_line = m * x_values + b  # Line formula
+
+    plt.figure(figsize=(8, 6))
+    plt.scatter(x_values, y_values, color='red', label='hours studied vs grade', marker='o')
+    plt.plot(x_values, y_line, color='blue', label=f'y = {m:.2f}x + {b:.2f}', linewidth=2)
+
+    # Adding labels and title
+    plt.xlabel('number of hours studied')
+    plt.ylabel('grade')
+    plt.title('Number of Hours Studied vs. Grade Achieved')
+    plt.legend()
+
+    plt.grid(True)
+    plt.show()
 
 if __name__ == '__main__':
     run()
